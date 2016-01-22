@@ -1,0 +1,76 @@
+<!doctype html>
+<html data-ng-app="Todo" data-ng-controller="TodoController" class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ appTitle }} - {{ remaining() }} of {{ todos.length }} remaining</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/ctrl.css">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="splash">
+          <h2>Loading</h2>
+        </div>
+        <div class="container">
+            <header class="app-header">
+                <h1 class="app-title" data-ng-bind="appTitle"></h1>
+            </header>
+            <section class="app-body">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                TITLE
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th class="chk">
+                                PROD
+                            </th>
+                            <th class="chk">
+                                DEV
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="todo in todos track by $index">
+                            <td>
+                                <span class="done-{{ todo.doneProd && todo.doneDev }}" data-ng-bind="todo.text"></span>
+                            </td>
+                            <td>
+                                <a data-ng-click="delete($index)"><i class="fa fa-times"></i></a>
+                            </td>
+                            <td>
+                                <a data-ng-click="edit($index)"><i class="fa fa-pencil-square-o"></i></a>
+                            </td>
+                            <td class="chk">
+                                <input type="checkbox" data-ng-model="todo.doneProd" data-ng-change="checkboxClick()">
+                            </td>
+                            <td class="chk">
+                                <input type="checkbox" data-ng-model="todo.doneDev" data-ng-change="checkboxClick()">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <section class="archive-control">
+                    <span>{{ remaining() }} of {{ todos.length }} remaining</span>
+                    <a class="fr" href="" data-ng-click="archive()" data-ng-show="remaining() < todos.length">Remove Completed Items</a>
+                </section>
+
+                <form data-ng-submit="addTodo()" class="todo-form">
+                    <input type="text" data-ng-model="todoText" placeholder="Enter new task item" />
+                    <br />
+                    <input type="submit" value="Add Task" />
+                </form>
+            </section>
+        </div>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+        <script src="js/ctrl.js"></script>
+    </body>
+</html>
+

@@ -1,0 +1,18 @@
+{
+  "name": "contacts.lo",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/artemylance/contacts.lo.git"
+  },
+  "author": "artemylance@gmail.com",
+  "bugs": {
+    "url": "https://github.com/artemylance/contacts.lo/issues"
+  }
+}
