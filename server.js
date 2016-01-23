@@ -1,18 +1,28 @@
-var http = require('http'),
-    fileSystem = require('fs'),
-    path = require('path');
+var http = require("http");
+var url = require("url");
 
-http.createServer(function(request, response) {
-    var filePath = path.join(__dirname, 'storage.json');
-    var stat = fileSystem.statSync(filePath);
+function start(route, handle) {
+  function onRequest(request, response) {
+    var postData = "";
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
 
-    response.writeHead(200, {
-        'Content-Type': 'application/json',
-        'Content-Length': stat.size
+    request.setEncoding("utf8");
+
+    request.addListener("data", function(postDataChunk) {
+      postData += postDataChunk;
+      console.log("Received POST data chunk '"+
+      postDataChunk + "'.");
     });
 
-    var readStream = fileSystem.createReadStream(filePath);
-    // We replaced all the event handlers with a simple call to readStream.pipe()
-    readStream.pipe(response);
-})
-.listen(2000);
+    request.addListener("end", function() {
+      route(handle, pathname, response, postData);
+    });
+
+  }
+
+  http.createServer(onRequest).listen(10000);
+  console.log("Server has started.");
+}
+
+exports.start = start;

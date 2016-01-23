@@ -5,7 +5,7 @@ angular.module('Todo', []).factory('myhttpserv', function ($http) {
     myhttpserv.then(function(response){
         $scope.todos = (response.data !== null) ? response.data : [];
         var httpPost = function() {
-            $http.post('save.php', JSON.stringify($scope.todos)).error(function(status){console.log(status)});
+            $http.post('storage', JSON.stringify($scope.todos)).error(function(status){console.log(status)});
         };
 
         $scope.addTodo = function(){
