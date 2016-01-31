@@ -1,4 +1,5 @@
-var exec = require("child_process").exec;
+var exec = require("child_process").exec,
+	fs = require("fs");
 
 function start(response) {
 	console.log("Request handler 'start' was called.");
@@ -11,21 +12,14 @@ function start(response) {
 }
 function create(response) {
 	console.log("Request handler 'create' was called.");
-	var body = '<html>'+
-		'<head>'+
-	    '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />'+
-	    '</head>'+
-	    '<body>'+
-	    '<form action="/upload" method="post">'+
-	    '<textarea name="text" rows="20" cols="60"></textarea>'+
-	    '<input type="submit" value="Submit text" />'+
-	    '</form>'+
-	    '</body>'+
-	    '</html>';
-
-	response.writeHead(200, {"Content-Type": "text/html"});
-	response.write(body);
-	response.end();
+	fs.readFile('./index.html', function (err, html) {
+	    if (err) {
+	        throw err; 
+	    }       
+		response.writeHeader(200, {"Content-Type": "text/html"});  
+	    response.write(html);  
+	    response.end();  
+	});
 }
 function save(response) {
 	console.log("Request handler 'create' was called.");
