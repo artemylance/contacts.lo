@@ -2,23 +2,23 @@ var exec = require("child_process").exec,
 	fs = require("fs");
 
 function start(response) {
+	console.log("Request handler 'create' was called.");
+	fs.readFile('./index.html', function (err, html) {
+	    if (err) {
+	        throw err;
+	    }
+		response.writeHeader(200, {"Content-Type": "text/html"});
+	    response.write(html);
+	    response.end();
+	});
+}
+function create(response) {
 	console.log("Request handler 'start' was called.");
 
 	exec("ls -lah", function (error, stdout, stderr) {
 		response.writeHead(200, {"Content-Type": "text/plain; charset=utf-8"});
 		response.write(stdout);
 		response.end();
-	});
-}
-function create(response) {
-	console.log("Request handler 'create' was called.");
-	fs.readFile('./index.html', function (err, html) {
-	    if (err) {
-	        throw err; 
-	    }       
-		response.writeHeader(200, {"Content-Type": "text/html"});  
-	    response.write(html);  
-	    response.end();  
 	});
 }
 function save(response) {
