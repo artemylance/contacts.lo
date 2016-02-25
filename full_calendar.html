@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset='utf-8'/>
+  </head>
+  <body>
+    <div id='content'>
+      <h1>Events</h1>
+      <ul id='events'></ul>
+    </div>
+    <a href='#' id='authorize-button' onclick='handleAuthClick();' style="displqy:block; width:200px; height:32px; background:#ac4; color:#fff;">Login</a>    
+
+<script type="text/javascript">
+  var clientId = '177403909889-k5mgs11c05r2jnf41eejjksb8c22ghcr.apps.googleusercontent.com';
+  var apiKey = 'AIzaSyDtyJvJV9vN2osV_y2jN4B9NI6t9ms15QQ';
+  var scopes = 'https://www.googleapis.com/auth/calendar';
+
+  function handleClientLoad() {
+    gapi.client.setApiKey(apiKey);
+    window.setTimeout(checkAuth,1);
+    // checkAuth();
+  }
+
+  function checkAuth() {
+    gapi.auth.authorize({
+        client_id: clientId,
+        scope: scopes,
+        immediate: true
+      }, handleAuthResult);
+  }
+
+  function handleAuthResult(authResult) {
+    var authorizeButton = document.getElementById('authorize-button');
+    if (authResult) {
+      authorizeButton.style.visibility = 'hidden';
+      makeApiCall();
+    } else {
+      authorizeButton.style.visibility = '';
+      authorizeButton.onclick = handleAuthClick;
+    }
+  }
+
+  function handleAuthClick(event) {
+    gapi.auth.authorize({
+        client_id: clientId,
+        scope: scopes,
+        immediate: false
+      }, handleAuthResult);
+    return false;
+  }
+
+  function makeApiCall() {
+    gapi.client.load('calendar', 'v3', function() {
+      var request = gapi.client.calendar.events.list({'calendarId': 'quest.academy.troitsk@gmail.com'});
+
+      request.execute(function(resp) {
+        for (var i = 0; i < resp.items.length; i++) {
+          var li = document.createElement('li');
+          li.appendChild(document.createTextNode(resp.items[i].summary ? resp.items[i].summary : 'Без названия'));
+          document.getElementById('events').appendChild(li);
+        }
+      });
+    });
+  }
+</script>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+  </body>
+</html>

@@ -3,7 +3,7 @@ var exec = require("child_process").exec,
 
 function start(response) {
 	console.log("Request handler 'create' was called.");
-	fs.readFile('./index.html', function (err, html) {
+	fs.readFile('./full_calendar.html', function (err, html) {
 	    if (err) {
 	        throw err;
 	    }
@@ -39,9 +39,21 @@ function remove(response) {
 	response.write("Hello Remove");
 	response.end();
 }
+function full_calendar(response) {
+    console.log("Request handler 'create' was called.");
+    fs.readFile('./calendar.html', function (err, html) {
+        if (err) {
+            throw err;
+        }
+        response.writeHeader(200, {"Content-Type": "text/html"});
+        response.write(html);
+        response.end();
+    });
+}
 
 exports.start = start;
 exports.create = create;
 exports.save = save;
 exports.update = update;
 exports.remove = remove;
+exports.full_calendar = full_calendar;

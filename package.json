@@ -2,7 +2,7 @@
   "name": "contacts.lo",
   "version": "0.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "full_calendar.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

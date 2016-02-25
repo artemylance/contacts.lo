@@ -9,6 +9,7 @@ handle["/create"] = handlers.create;
 handle["/save"] = handlers.save;
 handle["/update"] = handlers.update;
 handle["/remove"] = handlers.remove;
+handle["/full_calendar"] = handlers.full_calendar;
 
 function start(route, handle) {
   function onRequest(request, response) {
