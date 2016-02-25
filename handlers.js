@@ -3,7 +3,7 @@ var exec = require("child_process").exec,
 
 function start(response) {
 	console.log("Request handler 'create' was called.");
-	fs.readFile('./full_calendar.html', function (err, html) {
+	fs.readFile('./index.html', function (err, html) {
 	    if (err) {
 	        throw err;
 	    }
@@ -41,7 +41,7 @@ function remove(response) {
 }
 function full_calendar(response) {
     console.log("Request handler 'create' was called.");
-    fs.readFile('./calendar.html', function (err, html) {
+    fs.readFile('./full_calendar.html', function (err, html) {
         if (err) {
             throw err;
         }
