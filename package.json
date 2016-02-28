@@ -1,7 +1,7 @@
 {
   "name": "contacts.lo",
   "version": "0.0.0",
-  "description": "",
+  "description": "## ToDo",
   "main": "full_calendar.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,5 +14,13 @@
   "author": "artemylance@gmail.com",
   "bugs": {
     "url": "https://github.com/artemylance/contacts.lo/issues"
-  }
+  },
+  "dependencies": {
+    "react-dom": "~0.14.7",
+    "react": "~0.14.7",
+    "babel-preset-react": "~6.5.0",
+    "webpack": "~1.12.14"
+  },
+  "devDependencies": {},
+  "license": "BSD-2-Clause"
 }
